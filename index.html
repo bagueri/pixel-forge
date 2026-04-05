@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Forge - Creative Digital Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="https://i.imgur.com/PAvMzDL.png">
+    <!-- Firebase SDKs -->
+    <script type="module">
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js';
+      import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js';
+      
+      // Your config
+      const firebaseConfig = {
+        apiKey: "AIzaSyAJHrIvg_X4cyUlgzIq0HtACHfx7xoohvk",
+        authDomain: "student-fe723.firebaseapp.com",
+        projectId: "student-fe723",
+        storageBucket: "student-fe723.firebasestorage.app",
+        messagingSenderId: "716993183092",
+        appId: "1:716993183092:web:e8e99d8b66b91a6e430021",
+        measurementId: "G-BEQ2VGHX03",
+        databaseURL: "https://student-fe723-default-rtdb.firebaseio.com/" // Add if needed
+      };
+      
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+      
+      // Listen to achievements data
+      const achievementsRef = ref(db, 'achievements');
+      onValue(achievementsRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          // Update counter elements
+          const counters = document.querySelectorAll('.counter');
+          const keys = ['projects', 'users', 'months', 'awards'];
+          counters.forEach((counter, index) => {
+            const target = data[keys[index]] || 0;
+            counter.setAttribute('data-count', target);
+            counter.setAttribute('data-target', target);
+          });
+        }
+      });
+    </script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loader" class="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h2 class="logo-text"><span class="logo-pixel"></span>Pixel Forge</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="#achievements" class="nav-link">Achievements</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <button class="dark-toggle" id="darkToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <!-- SVG Mail Button -->
+            <div class="mail-dropdown">
+                <button class="mail-btn" id="mailBtn" aria-label="Messages">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </button>
+                <div class="mail-menu" id="mailMenu">
+                    <div class="mail-item">
+                        <div class="mail-header">
+                            <strong>رسالة جديدة</strong>
+                            <small>قبل دقيقة</small>
+                        </div>
+                        <p>مرحبا سيكون الموقع مناسب للهواتف قريبا</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title animate">Welcome to <span class="highlight">Pixel Forge</span></h1>
+            <p class="hero-subtitle animate">Crafting innovative digital experiences with cutting-edge technology and creative excellence.</p>
+            <a href="#contact" class="cta-button animate">
+                <i class="fas fa-rocket"></i> Get Started
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="container">
+            <h2 class="section-title">About Pixel Forge</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Pixel Forge is a premier digital platform that transforms ideas into extraordinary digital realities. We specialize in creating responsive, high-performance websites and web applications that captivate and convert.</p>
+                    <p>With our expertise in modern web technologies, we deliver pixel-perfect designs combined with robust functionality to help your business thrive in the digital age.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat">
+                        <h3>100+</h3>
+                        <p>Projects</p>
+                    </div>
+                    <div class="stat">
+                        <h3>50+</h3>
+                        <p>Clients</p>
+                    </div>
+                    <div class="stat">
+                        <h3>99%</h3>
+                        <p>Satisfaction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80" alt="Project 1">
+                    </div>
+                    <div class="card-content">
+                        <h3>E-Commerce Platform</h3>
+                        <p>A fully responsive online store built with modern JavaScript frameworks and optimized for performance.</p>
+                        <div class="project-links">
+                            <a href="#" class="link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80" alt="Project 2">
+                    </div>
+                    <div class="card-content">
+                        <h3>Dashboard Analytics</h3>
+                        <p>Interactive data visualization dashboard with real-time updates and advanced filtering capabilities.</p>
+                        <div class="project-links">
+                            <a href="#" class="link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1517433456452-f9633a875f6f?ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80" alt="Project 3">
+                    </div>
+                    <div class="card-content">
+                        <h3>Mobile App Landing</h3>
+                        <p>High-conversion landing page for mobile application with animated elements and smooth interactions.</p>
+                        <div class="project-links">
+                            <a href="#" class="link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="link"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="section achievements">
+        <div class="container">
+            <h2 class="section-title">Our Achievements</h2>
+            <div class="achievements-grid">
+                <div class="achievement-counter" data-target="150">
+                    <h3 class="counter" data-count="0">0</h3>
+                    <p>Projects Completed</p>
+                </div>
+                <div class="achievement-counter" data-target="50000">
+                    <h3 class="counter" data-count="0">0</h3>
+                    <p>Happy Users</p>
+                </div>
+                <div class="achievement-counter" data-target="24">
+                    <h3 class="counter" data-count="0">0</h3>
+                    <p>Months Experience</p>
+                </div>
+                <div class="achievement-counter" data-target="100">
+                    <h3 class="counter" data-count="0">0</h3>
+                    <p>Awards Won</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Ready to start your project?</h3>
+                    <p>Let's discuss your vision and bring it to life.</p>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>soulaymanbagueri02@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+212 6 51149570</span>
+                        <a href="https://wa.me/212651149570?text=مرحبا%20pixel%20forge%20احتاج%20مساعدة" class="whatsapp-btn" target="_blank" rel="noopener" aria-label="WhatsApp">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.886 4.488"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm" action="https://formspree.io/f/xnjoopgq" method="POST">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-text">Send Message</span>
+                        <span class="loading"></span>
+                    </button>
+                    <div class="form-message" id="formMessage"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer id="footer" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-logo"><span class="logo-pixel"></span>Pixel Forge</h3>
+                    <p>Building extraordinary digital experiences with modern technology and creative excellence.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#achievements">Achievements</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-envelope"></i> soulaymanbagueri02@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> +212 6 51149570</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Morocco</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-accent"></div>
+                <p>&copy; 2024 Pixel Forge. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent-blue);"></i> in Morocco</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
